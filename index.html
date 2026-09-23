@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío secreto ❤️</title>
+<style>
+:root{
+  --pink:#ff4f91;
+  --pink2:#ff86b5;
+  --dark:#211525;
+  --card:rgba(255,255,255,.13);
+  --line:rgba(255,255,255,.25);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:white;
+  background:
+    radial-gradient(circle at 20% 10%,#773b76 0,transparent 35%),
+    radial-gradient(circle at 90% 90%,#6d234f 0,transparent 40%),
+    linear-gradient(135deg,#1c1029,#35172e 55%,#1b1027);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:22px;
+}
+#particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.particle{
+  position:absolute;
+  bottom:-50px;
+  animation:floatUp linear infinite;
+  opacity:.7;
+  filter:drop-shadow(0 0 7px #ff75ac);
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg) scale(.7);opacity:0}
+  15%{opacity:.8}
+  100%{transform:translateY(-115vh) rotate(360deg) scale(1.25);opacity:0}
+}
+.app{
+  position:relative;
+  z-index:1;
+  width:min(760px,100%);
+  background:rgba(24,10,31,.72);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:25px;
+  box-shadow:0 25px 90px rgba(0,0,0,.4),0 0 45px rgba(255,70,145,.13);
+  backdrop-filter:blur(14px);
+}
+header{text-align:center}
+.badge{
+  display:inline-block;
+  padding:6px 13px;
+  border:1px solid #ff7eae;
+  border-radius:999px;
+  color:#ffd3e4;
+  font-size:.8rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+h1{font-size:clamp(2rem,5vw,3.5rem);margin:12px 0 5px;line-height:1}
+.subtitle{color:#f8c8dc;margin:0 0 18px}
+.topbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:15px 0}
+.stat{background:rgba(255,255,255,.08);border:1px solid var(--line);padding:10px 14px;border-radius:14px}
+#lives{letter-spacing:3px}
+.progress{height:9px;background:#ffffff18;border-radius:99px;overflow:hidden;margin:15px 0 24px}
+#bar{height:100%;width:0;background:linear-gradient(90deg,#ff4f91,#ffc0d9);transition:width .45s ease}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:23px;
+  animation:cardIn .45s ease;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:none}}
+h2{margin-top:0;font-size:clamp(1.3rem,3vw,1.8rem)}
+.question{font-size:1.05rem;color:#ffe4ef;line-height:1.55}
+button,input{
+  font:inherit;
+}
+button{
+  cursor:pointer;
+  border:0;
+  border-radius:14px;
+  padding:12px 17px;
+  color:white;
+  background:linear-gradient(135deg,#ff4f91,#d72f76);
+  box-shadow:0 8px 18px #0002;
+  transition:transform .18s,filter .18s;
+  font-weight:700;
+}
+button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+button:active{transform:scale(.97)}
+button.secondary{background:#ffffff18;border:1px solid var(--line)}
+.options{display:grid;gap:12px;margin-top:20px}
+.options button{text-align:left;background:#ffffff12;border:1px solid #ffffff2b}
+.options button:hover{background:#ff4f9130}
+input{
+  width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff40;
+  background:#180d22;color:white;outline:none;margin:14px 0;
+}
+input:focus{border-color:#ff86b5;box-shadow:0 0 0 3px #ff4f9130}
+.feedback{min-height:28px;margin-top:14px;color:#ffd0e2;font-weight:700}
+.timerline{display:flex;justify-content:space-between;color:#ffc5dc;font-size:.9rem}
+#timer{font-weight:800}
+.sequence{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:25px 0}
+.symbol{
+  width:62px;height:62px;display:grid;place-items:center;border-radius:17px;
+  background:#ffffff16;border:1px solid #ffffff35;font-size:2rem;
+  animation:pulse 1.2s infinite alternate;
+}
+@keyframes pulse{to{transform:translateY(-5px);box-shadow:0 0 20px #ff4f9166}}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.tile{
+  aspect-ratio:1;border-radius:14px;border:1px solid #ffffff30;
+  background:linear-gradient(135deg,#ff4f91,#7c285d);
+  font-size:2rem;color:transparent;
+}
+.tile.revealed{color:white;background:#ffffff18}
+.tile.matched{color:white;background:#5dbb9b;transform:scale(.96)}
+.center{text-align:center}
+.big-heart{
+  font-size:6rem;display:inline-block;
+  animation:heartBeat 1s infinite;
+  filter:drop-shadow(0 0 18px #ff4f91);
+}
+@keyframes heartBeat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.kiss{
+  display:inline-block;font-size:4rem;
+  animation:kiss 2s infinite ease-in-out;
+}
+@keyframes kiss{0%,100%{transform:translateX(-8px) rotate(-8deg)}50%{transform:translateX(8px) rotate(8deg)}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
+footer{text-align:center;color:#d9a8c0;font-size:.8rem;margin-top:18px}
+@media(max-width:520px){.app{padding:17px}.card{padding:17px}.memory-grid{gap:7px}.symbol{width:50px;height:50px}}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<main class="app">
+<header>
+  <span class="badge">Misión romántica secreta</span>
+  <h1>Desafío para vos ❤️</h1>
+  <p class="subtitle">Si ganás: sorpresa. Si perdés: te voy a cargar un poquito 😌</p>
+</header>
+
+<div class="topbar">
+  <div class="stat">Reto: <b id="round">1</b>/6</div>
+  <div class="stat">Vidas: <span id="lives">❤️❤️❤️</span></div>
+  <div class="stat">Tiempo: <b id="timer">—</b></div>
+</div>
+<div class="progress"><div id="bar"></div></div>
+<section id="game" class="card"></section>
+<footer>Hecho con amor, paciencia y un poquito de maldad 😈</footer>
+</main>
+
+<script>
+const game=document.getElementById("game");
+const roundEl=document.getElementById("round");
+const livesEl=document.getElementById("lives");
+const timerEl=document.getElementById("timer");
+const bar=document.getElementById("bar");
+let level=0,lives=3,timer=null,seconds=0,locked=false;
+let memory=[],chosen=[],matches=0;
+
+const levels=[
+ {title:"Reto 1 · El mensaje escondido",time:25,
+  text:"¿Cuál de estas opciones completa la frase? «Te quiero más que…»",
+  options:["A) A dormir","B) A cualquier cosa","C) Al WiFi"],
+  correct:1,success:"Bien ahí, romántico. Arrancamos fuerte."},
+ {title:"Reto 2 · Código secreto",time:35,
+  text:"Descifrá esta palabra. Cada letra fue desplazada una posición hacia adelante en el abecedario: <b>TPSB</b>. ¿Qué palabra es?",
+  input:true,placeholder:"Escribí la palabra…",answer:"sorp"},
+ {title:"Reto 3 · Memoria peligrosa",time:40,
+  text:"Memorizá las parejas y encontrá todas. Si te equivocás demasiado, perdés una vida.",
+  memory:true},
+ {title:"Reto 4 · La secuencia del amor",time:25,
+  text:"Mirá la secuencia durante unos segundos y después escribila exactamente, sin espacios.",
+  sequence:true},
+ {title:"Reto 5 · Lógica de novio",time:30,
+  text:"Si yo tengo 3 chocolates, vos me das 2 y después yo me como 4… ¿cuántos chocolates me quedan?",
+  options:["A) 1","B) 5","C) 0","D) Depende de si me dejás compartir"],
+  correct:2,success:"Exacto. El chocolate no sobrevive en esta relación."},
+ {title:"Reto final · La pregunta trampa",time:20,
+  text:"¿Quién tiene siempre la razón?",
+  options:["A) Vos","B) Yo","C) El perro/gato","D) La respuesta correcta es B"],
+  correct:3,success:"Sabía que ibas a elegir bien. O eso espero 😌"}
+];
+
+function particles(){
+  const p=document.getElementById("particles");
+  for(let i=0;i<28;i++){
+    const e=document.createElement("span");
+    e.className="particle";
+    e.textContent=["♥","✦","♡","✨"][Math.floor(Math.random()*4)];
+    e.style.left=Math.random()*100+"%";
+    e.style.fontSize=(12+Math.random()*22)+"px";
+    e.style.animationDuration=(7+Math.random()*10)+"s";
+    e.style.animationDelay=(-Math.random()*15)+"s";
+    p.appendChild(e);
+  }
+}
+function updateTop(){
+  roundEl.textContent=Math.min(level+1,6);
+  livesEl.textContent="❤️".repeat(lives)+"🖤".repeat(3-lives);
+  bar.style.width=(level/6*100)+"%";
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null}timerEl.textContent="—"}
+function startTimer(n,callback){
+  stopTimer();seconds=n;timerEl.textContent=seconds+"s";
+  timer=setInterval(()=>{seconds--;timerEl.textContent=seconds+"s";
+    if(seconds<=0){stopTimer();callback();}
+  },1000);
+}
+function loseLife(reason){
+  lives--;updateTop();
+  game.classList.remove("shake");void game.offsetWidth;game.classList.add("shake");
+  if(lives<=0){loseScreen();return true}
+  game.querySelector(".feedback").textContent=reason+" Te queda(n) "+lives+" vida(s).";
+  return false;
+}
+function success(msg){
+  stopTimer();
+  game.innerHTML=`<div class="center"><div class="big-heart">💖</div><h2>¡Reto superado!</h2><p class="question">${msg}</p><button onclick="next()">Siguiente reto →</button></div>`;
+}
+function answer(i){
+  if(locked)return;
+  locked=true;stopTimer();
+  const l=levels[level];
+  if(i===l.correct) success(l.success);
+  else{
+    const dead=loseLife("Incorrecto 😈");
+    if(!dead){
+      game.querySelector(".feedback").textContent="Incorrecto 😈 Te queda(n) "+lives+" vida(s).";
+      locked=false;startTimer(18,()=>timeout());
+    }
+  }
+}
+function timeout(){
+  if(locked)return;
+  locked=true;
+  const dead=loseLife("Se terminó el tiempo ⏰");
+  if(!dead){locked=false;render()}
+}
+function render(){
+  locked=false;stopTimer();updateTop();
+  const l=levels[level];
+  let html=`<h2>${l.title}</h2><p class="question">${l.text}</p>`;
+  if(l.options) html+=`<div class="options">${l.options.map((x,i)=>`<button onclick="answer(${i})">${x}</button>`).join("")}</div>`;
+  if(l.input) html+=`<input id="answerInput" placeholder="${l.placeholder}" autocomplete="off"><button onclick="checkCode()">Comprobar código</button>`;
+  if(l.memory) html+=`<div id="memoryArea"></div>`;
+  if(l.sequence) html+=`<div id="sequenceArea"></div>`;
+  html+=`<div class="feedback"></div>`;
+  game.innerHTML=html;
+  if(l.input)startTimer(l.time,timeout);
+  if(l.memory)initMemory();
+  if(l.sequence)initSequence();
+  if(l.options)startTimer(l.time,timeout);
+}
+function checkCode(){
+  const val=document.getElementById("answerInput").value.trim().toLowerCase();
+  if(val==="sorpresa"||val==="sorp")success("¡Descifraste el código! La sorpresa se acerca…");
+  else{
+    const dead=loseLife("Ese código no era 😏");
+    if(!dead){locked=false}
+  }
+}
+function initSequence(){
+  const symbols=["♥","★","☾","✦","♡","◆"];
+  const seq=Array.from({length:5},()=>symbols[Math.floor(Math.random()*symbols.length)]);
+  const area=document.getElementById("sequenceArea");
+  area.innerHTML=`<div class="sequence">${seq.map(s=>`<div class="symbol">${s}</div>`).join("")}</div><p class="center" id="seqHint">Memorizala…</p><input id="seqInput" placeholder="Escribí la secuencia sin espacios"><button onclick="checkSequence()">Comprobar</button>`;
+  setTimeout(()=>{area.querySelector(".sequence").innerHTML=seq.map(()=>`<div class="symbol">❓</div>`).join("");document.getElementById("seqHint").textContent="Ahora sí: ¿cuál era?";area.dataset.answer=seq.join("");},5500);
+  startTimer(25,timeout);
+}
+function checkSequence(){
+  const area=document.getElementById("sequenceArea");
+  if(document.getElementById("seqInput").value.trim()===area.dataset.answer)success("¡Tenés memoria de elefante enamorado! 💘");
+  else{const dead=loseLife("No era esa secuencia 😵");if(!dead)locked=false}
+}
+function initMemory(){
+  const icons=["💋","🌹","🍫","💍","💋","🌹","🍫","💍"];
+  icons.sort(()=>Math.random()-.5);memory=icons;chosen=[];matches=0;
+  const area=document.getElementById("memoryArea");
+  area.innerHTML=`<div class="memory-grid">${memory.map((x,i)=>`<button class="tile" id="tile${i}" onclick="flip(${i})">${x}</button>`).join("")}</div><p class="feedback" id="memoryFeedback">Encontrá las 4 parejas.</p>`;
+  startTimer(40,timeout);
+}
+function flip(i){
+  if(locked)return;
+  const el=document.getElementById("tile"+i);
+  if(el.classList.contains("revealed")||el.classList.contains("matched"))return;
+  el.classList.add("revealed");chosen.push(i);
+  if(chosen.length===2){
+    locked=true;
+    const [a,b]=chosen;
+    if(memory[a]===memory[b]){
+      document.getElementById("tile"+a).classList.add("matched");
+      document.getElementById("tile"+b).classList.add("matched");
+      matches++;chosen=[];locked=false;
+      if(matches===4)success("¡Encontraste todas las parejas! 💞");
+    }else{
+      setTimeout(()=>{document.getElementById("tile"+a).classList.remove("revealed");document.getElementById("tile"+b).classList.remove("revealed");chosen=[];locked=false;},700);
+    }
+  }
+}
+function next(){
+  level++;
+  if(level>=levels.length){winScreen();return}
+  render();
+}
+function loseScreen(){
+  stopTimer();locked=true;bar.style.width=(level/6*100)+"%";
+  game.innerHTML=`<div class="center"><div class="kiss">😈💋</div><h2>¡Perdiste, campeón!</h2><p class="question">La sorpresa queda secuestrada por ahora. Te faltó un poquito de cerebro y te sobró confianza 😂</p><p>Pero podés volver a intentarlo.</p><button onclick="restart()">Reintentar 🔁</button></div>`;
+}
+function winScreen(){
+  stopTimer();bar.style.width="100%";roundEl.textContent="6";
+  game.innerHTML=`<div class="center"><div class="big-heart">💖</div><div class="kiss">😘</div><h2>¡GANASTE!</h2><p class="question"><b>Cuando te vea te doy la sorpresa.</b></p><p>Te amo, incluso cuando te burlás de este juego 😌❤️</p><button onclick="restart()">Jugar otra vez 🔁</button></div>`;
+}
+function restart(){level=0;lives=3;render()}
+particles();render();
+</script>
+</body>
+</html>
