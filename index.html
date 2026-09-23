@@ -3,327 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desafío secreto ❤️</title>
+<title>La misión de la sorpresa ❤️</title>
 <style>
-:root{
-  --pink:#ff4f91;
-  --pink2:#ff86b5;
-  --dark:#211525;
-  --card:rgba(255,255,255,.13);
-  --line:rgba(255,255,255,.25);
-}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  overflow-x:hidden;
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  color:white;
-  background:
-    radial-gradient(circle at 20% 10%,#773b76 0,transparent 35%),
-    radial-gradient(circle at 90% 90%,#6d234f 0,transparent 40%),
-    linear-gradient(135deg,#1c1029,#35172e 55%,#1b1027);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:22px;
-}
-#particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.particle{
-  position:absolute;
-  bottom:-50px;
-  animation:floatUp linear infinite;
-  opacity:.7;
-  filter:drop-shadow(0 0 7px #ff75ac);
-}
-@keyframes floatUp{
-  0%{transform:translateY(0) rotate(0deg) scale(.7);opacity:0}
-  15%{opacity:.8}
-  100%{transform:translateY(-115vh) rotate(360deg) scale(1.25);opacity:0}
-}
-.app{
-  position:relative;
-  z-index:1;
-  width:min(760px,100%);
-  background:rgba(24,10,31,.72);
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:25px;
-  box-shadow:0 25px 90px rgba(0,0,0,.4),0 0 45px rgba(255,70,145,.13);
-  backdrop-filter:blur(14px);
-}
-header{text-align:center}
-.badge{
-  display:inline-block;
-  padding:6px 13px;
-  border:1px solid #ff7eae;
-  border-radius:999px;
-  color:#ffd3e4;
-  font-size:.8rem;
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
-h1{font-size:clamp(2rem,5vw,3.5rem);margin:12px 0 5px;line-height:1}
-.subtitle{color:#f8c8dc;margin:0 0 18px}
-.topbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:15px 0}
-.stat{background:rgba(255,255,255,.08);border:1px solid var(--line);padding:10px 14px;border-radius:14px}
-#lives{letter-spacing:3px}
-.progress{height:9px;background:#ffffff18;border-radius:99px;overflow:hidden;margin:15px 0 24px}
-#bar{height:100%;width:0;background:linear-gradient(90deg,#ff4f91,#ffc0d9);transition:width .45s ease}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:23px;
-  animation:cardIn .45s ease;
-}
-@keyframes cardIn{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:none}}
-h2{margin-top:0;font-size:clamp(1.3rem,3vw,1.8rem)}
-.question{font-size:1.05rem;color:#ffe4ef;line-height:1.55}
-button,input{
-  font:inherit;
-}
-button{
-  cursor:pointer;
-  border:0;
-  border-radius:14px;
-  padding:12px 17px;
-  color:white;
-  background:linear-gradient(135deg,#ff4f91,#d72f76);
-  box-shadow:0 8px 18px #0002;
-  transition:transform .18s,filter .18s;
-  font-weight:700;
-}
-button:hover{transform:translateY(-2px);filter:brightness(1.1)}
-button:active{transform:scale(.97)}
-button.secondary{background:#ffffff18;border:1px solid var(--line)}
-.options{display:grid;gap:12px;margin-top:20px}
-.options button{text-align:left;background:#ffffff12;border:1px solid #ffffff2b}
-.options button:hover{background:#ff4f9130}
-input{
-  width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff40;
-  background:#180d22;color:white;outline:none;margin:14px 0;
-}
-input:focus{border-color:#ff86b5;box-shadow:0 0 0 3px #ff4f9130}
-.feedback{min-height:28px;margin-top:14px;color:#ffd0e2;font-weight:700}
-.timerline{display:flex;justify-content:space-between;color:#ffc5dc;font-size:.9rem}
-#timer{font-weight:800}
-.sequence{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:25px 0}
-.symbol{
-  width:62px;height:62px;display:grid;place-items:center;border-radius:17px;
-  background:#ffffff16;border:1px solid #ffffff35;font-size:2rem;
-  animation:pulse 1.2s infinite alternate;
-}
-@keyframes pulse{to{transform:translateY(-5px);box-shadow:0 0 20px #ff4f9166}}
-.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
-.tile{
-  aspect-ratio:1;border-radius:14px;border:1px solid #ffffff30;
-  background:linear-gradient(135deg,#ff4f91,#7c285d);
-  font-size:2rem;color:transparent;
-}
-.tile.revealed{color:white;background:#ffffff18}
-.tile.matched{color:white;background:#5dbb9b;transform:scale(.96)}
-.center{text-align:center}
-.big-heart{
-  font-size:6rem;display:inline-block;
-  animation:heartBeat 1s infinite;
-  filter:drop-shadow(0 0 18px #ff4f91);
-}
-@keyframes heartBeat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
-.kiss{
-  display:inline-block;font-size:4rem;
-  animation:kiss 2s infinite ease-in-out;
-}
-@keyframes kiss{0%,100%{transform:translateX(-8px) rotate(-8deg)}50%{transform:translateX(8px) rotate(8deg)}}
-.shake{animation:shake .35s}
-@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
-footer{text-align:center;color:#d9a8c0;font-size:.8rem;margin-top:18px}
-@media(max-width:520px){.app{padding:17px}.card{padding:17px}.memory-grid{gap:7px}.symbol{width:50px;height:50px}}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;background:radial-gradient(circle at 20% 10%,#7d285f,transparent 35%),radial-gradient(circle at 90% 90%,#6c214c,transparent 40%),linear-gradient(135deg,#180d25,#35132e);display:flex;align-items:center;justify-content:center;padding:18px;overflow-x:hidden}
+#bg{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.float{position:absolute;bottom:-50px;animation:up linear infinite;opacity:0}
+@keyframes up{15%{opacity:.8}100%{transform:translateY(-115vh) rotate(360deg);opacity:0}}
+.app{width:min(780px,100%);position:relative;z-index:2;background:#180d25c9;border:1px solid #ffffff2e;border-radius:28px;padding:22px;box-shadow:0 25px 80px #0008;backdrop-filter:blur(12px)}
+header{text-align:center}.tag{font-size:.75rem;letter-spacing:1.5px;color:#ffc6dd;border:1px solid #ff79ad;padding:6px 12px;border-radius:99px}
+h1{font-size:clamp(2rem,6vw,3.4rem);margin:15px 0 5px}.sub{color:#f4bdd3;margin-top:0}
+.stats{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:16px 0}
+.stat{background:#ffffff10;border:1px solid #ffffff24;border-radius:13px;padding:9px 13px}
+#barbox{height:8px;background:#ffffff12;border-radius:99px;overflow:hidden;margin-bottom:22px}#bar{height:100%;width:0;background:linear-gradient(90deg,#ff4f91,#ffc3d9);transition:.4s}
+.card{background:#ffffff0e;border:1px solid #ffffff28;border-radius:22px;padding:23px;animation:in .4s ease}
+@keyframes in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+h2{margin:0 0 10px}.question{color:#ffe2ed;line-height:1.55;font-size:1.05rem}
+button,input{font:inherit}button{border:0;border-radius:13px;padding:12px 16px;color:#fff;background:linear-gradient(135deg,#ff4f91,#d92f75);font-weight:800;cursor:pointer;transition:.15s}button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.options{display:grid;gap:10px;margin-top:18px}.options button{text-align:left;background:#ffffff0e;border:1px solid #ffffff25}
+input{width:100%;padding:13px;border-radius:12px;border:1px solid #ffffff35;background:#130b1c;color:#fff;outline:none;margin:15px 0}input:focus{border-color:#ff79ad}
+.feedback{min-height:25px;margin-top:13px;color:#ffc7da;font-weight:700}
+.center{text-align:center}.big{font-size:5rem;display:inline-block;animation:heart 1.1s infinite;filter:drop-shadow(0 0 15px #ff4f91)}
+@keyframes heart{0%,100%{transform:scale(1)}20%{transform:scale(1.2)}40%{transform:scale(1)}}
+.meter{height:18px;border-radius:99px;background:#ffffff14;overflow:hidden;margin:15px 0}.meter i{display:block;height:100%;width:0;background:#ff5b9a;transition:.2s}
+.reaction{font-size:3.5rem;min-height:70px;display:grid;place-items:center}
+.sequence{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0}.sym{width:58px;height:58px;border-radius:15px;background:#ffffff14;border:1px solid #ffffff28;display:grid;place-items:center;font-size:2rem}
+.scramble{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:20px 0}.letter{font-size:1.6rem;font-weight:900;background:#ffffff12;border:1px solid #ffffff28;padding:10px 13px;border-radius:12px}
+.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.hole{aspect-ratio:1;border-radius:50%;background:#120a1a;border:2px solid #ffffff18;display:grid;place-items:center;font-size:2rem}
+footer{text-align:center;color:#bc91aa;font-size:.78rem;margin-top:15px}
+.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
+@media(max-width:520px){.app{padding:16px}.card{padding:17px}}
 </style>
 </head>
 <body>
-<div id="particles"></div>
+<div id="bg"></div>
 <main class="app">
 <header>
-  <span class="badge">Misión romántica secreta</span>
-  <h1>Desafío para vos ❤️</h1>
-  <p class="subtitle">Si ganás: sorpresa. Si perdés: te voy a cargar un poquito 😌</p>
+<span class="tag">MISIÓN SECRETA ❤️</span>
+<h1>¿Querés tu sorpresa?</h1>
+<p class="sub">Demostrá que merecés desbloquearla 😈</p>
 </header>
-
-<div class="topbar">
-  <div class="stat">Reto: <b id="round">1</b>/6</div>
-  <div class="stat">Vidas: <span id="lives">❤️❤️❤️</span></div>
-  <div class="stat">Tiempo: <b id="timer">—</b></div>
+<div class="stats">
+<div class="stat">Prueba <b id="n">1</b>/7</div>
+<div class="stat">Vidas <span id="lives">❤️❤️❤️</span></div>
+<div class="stat">Tiempo <b id="time">—</b></div>
 </div>
-<div class="progress"><div id="bar"></div></div>
+<div id="barbox"><div id="bar"></div></div>
 <section id="game" class="card"></section>
-<footer>Hecho con amor, paciencia y un poquito de maldad 😈</footer>
+<footer>Advertencia: el novio puede ser descansado si pierde 😂</footer>
 </main>
 
 <script>
-const game=document.getElementById("game");
-const roundEl=document.getElementById("round");
-const livesEl=document.getElementById("lives");
-const timerEl=document.getElementById("timer");
-const bar=document.getElementById("bar");
-let level=0,lives=3,timer=null,seconds=0,locked=false;
-let memory=[],chosen=[],matches=0;
+const game=document.getElementById("game"), nEl=document.getElementById("n"), livesEl=document.getElementById("lives"), timeEl=document.getElementById("time"), bar=document.getElementById("bar");
+let level=0,lives=3,timer=null,locked=false,score=0,answerExpected="",reactionTimeout=null;
 
-const levels=[
- {title:"Reto 1 · El mensaje escondido",time:25,
-  text:"¿Cuál de estas opciones completa la frase? «Te quiero más que…»",
-  options:["A) A dormir","B) A cualquier cosa","C) Al WiFi"],
-  correct:1,success:"Bien ahí, romántico. Arrancamos fuerte."},
- {title:"Reto 2 · Código secreto",time:35,
-  text:"Descifrá esta palabra. Cada letra fue desplazada una posición hacia adelante en el abecedario: <b>TPSB</b>. ¿Qué palabra es?",
-  input:true,placeholder:"Escribí la palabra…",answer:"sorp"},
- {title:"Reto 3 · Memoria peligrosa",time:40,
-  text:"Memorizá las parejas y encontrá todas. Si te equivocás demasiado, perdés una vida.",
-  memory:true},
- {title:"Reto 4 · La secuencia del amor",time:25,
-  text:"Mirá la secuencia durante unos segundos y después escribila exactamente, sin espacios.",
-  sequence:true},
- {title:"Reto 5 · Lógica de novio",time:30,
-  text:"Si yo tengo 3 chocolates, vos me das 2 y después yo me como 4… ¿cuántos chocolates me quedan?",
-  options:["A) 1","B) 5","C) 0","D) Depende de si me dejás compartir"],
-  correct:2,success:"Exacto. El chocolate no sobrevive en esta relación."},
- {title:"Reto final · La pregunta trampa",time:20,
-  text:"¿Quién tiene siempre la razón?",
-  options:["A) Vos","B) Yo","C) El perro/gato","D) La respuesta correcta es B"],
-  correct:3,success:"Sabía que ibas a elegir bien. O eso espero 😌"}
+const challenges=[
+ {type:"choice",title:"🔥 Reto 1 · ¿Cuánto me conocés?",q:"¿Qué vale más para conseguir la sorpresa?",opts:["A) Tener suerte","B) Conocerme bien","C) Pagarme","D) Hacer trampa"],correct:1,ok:"Empezamos bien. Por ahora no te devuelvo a tu casa 😌"},
+ {type:"code",title:"🔐 Reto 2 · Código secreto",q:"Descifrá <b>SPSQSFTB</b>. Cada letra del mensaje original fue desplazada <b>una posición hacia adelante</b> en el abecedario. ¿Qué palabra aparece al volver una posición atrás?",input:true,answer:"sorpresa",ok:"¡DESCIFRASTE LA SORPRESA! 🕵️‍♂️"},
+ {type:"reaction",title:"⚡ Reto 3 · Reflejos",q:"Cuando aparezca ❤️, hacé clic en el botón. Si aparece 😈, NO TOQUES NADA.",reaction:true},
+ {type:"sequence",title:"🧠 Reto 4 · Memoria express",q:"Memorizá los símbolos. Desaparecen en 4 segundos.",sequence:true},
+ {type:"choice",title:"🍫 Reto 5 · El dilema",q:"Tenés una última porción de chocolate y yo te digo «es mía». ¿Qué hacés?",opts:["A) Me la como escondido","B) Te la doy y pido un beso","C) La tiro","D) La vendo"],correct:1,ok:"Respuesta aprobada. El chocolate puede continuar con vida."},
+ {type:"scramble",title:"🔤 Reto 6 · Palabra desordenada",q:"Ordená las letras para formar algo que seguramente querés recibir:",letters:["S","O","R","P","R","E","S","A"],input:true,answer:"sorpresa",ok:"¡SÍ! Ya casi llegás al premio."},
+ {type:"final",title:"👑 RETO FINAL · La pregunta imposible",q:"Elegí con cuidado. Esta respuesta decide tu destino:",opts:["A) Yo siempre tengo razón ❤️","B) Vos siempre tenés razón","C) Los dos tenemos razón","D) No quiero problemas"],correct:0,ok:"Respuesta diplomática y estratégicamente correcta. 😂❤️"}
 ];
 
-function particles(){
-  const p=document.getElementById("particles");
-  for(let i=0;i<28;i++){
-    const e=document.createElement("span");
-    e.className="particle";
-    e.textContent=["♥","✦","♡","✨"][Math.floor(Math.random()*4)];
-    e.style.left=Math.random()*100+"%";
-    e.style.fontSize=(12+Math.random()*22)+"px";
-    e.style.animationDuration=(7+Math.random()*10)+"s";
-    e.style.animationDelay=(-Math.random()*15)+"s";
-    p.appendChild(e);
-  }
+function bg(){
+ const b=document.getElementById("bg");
+ for(let i=0;i<32;i++){let e=document.createElement("span");e.className="float";e.textContent=["♥","♡","✦","✨","💋"][Math.floor(Math.random()*5)];e.style.left=Math.random()*100+"%";e.style.fontSize=12+Math.random()*25+"px";e.style.animationDuration=7+Math.random()*9+"s";e.style.animationDelay=-(Math.random()*14)+"s";b.appendChild(e)}
 }
-function updateTop(){
-  roundEl.textContent=Math.min(level+1,6);
-  livesEl.textContent="❤️".repeat(lives)+"🖤".repeat(3-lives);
-  bar.style.width=(level/6*100)+"%";
-}
-function stopTimer(){if(timer){clearInterval(timer);timer=null}timerEl.textContent="—"}
-function startTimer(n,callback){
-  stopTimer();seconds=n;timerEl.textContent=seconds+"s";
-  timer=setInterval(()=>{seconds--;timerEl.textContent=seconds+"s";
-    if(seconds<=0){stopTimer();callback();}
-  },1000);
-}
-function loseLife(reason){
-  lives--;updateTop();
-  game.classList.remove("shake");void game.offsetWidth;game.classList.add("shake");
-  if(lives<=0){loseScreen();return true}
-  game.querySelector(".feedback").textContent=reason+" Te queda(n) "+lives+" vida(s).";
-  return false;
-}
-function success(msg){
-  stopTimer();
-  game.innerHTML=`<div class="center"><div class="big-heart">💖</div><h2>¡Reto superado!</h2><p class="question">${msg}</p><button onclick="next()">Siguiente reto →</button></div>`;
-}
-function answer(i){
-  if(locked)return;
-  locked=true;stopTimer();
-  const l=levels[level];
-  if(i===l.correct) success(l.success);
-  else{
-    const dead=loseLife("Incorrecto 😈");
-    if(!dead){
-      game.querySelector(".feedback").textContent="Incorrecto 😈 Te queda(n) "+lives+" vida(s).";
-      locked=false;startTimer(18,()=>timeout());
-    }
-  }
-}
-function timeout(){
-  if(locked)return;
-  locked=true;
-  const dead=loseLife("Se terminó el tiempo ⏰");
-  if(!dead){locked=false;render()}
-}
+function update(){nEl.textContent=Math.min(level+1,7);livesEl.textContent="❤️".repeat(lives)+"🖤".repeat(3-lives);bar.style.width=(level/7*100)+"%"}
+function stop(){clearInterval(timer);timer=null;timeEl.textContent="—"}
+function start(sec,cb){stop();let s=sec;timeEl.textContent=s+"s";timer=setInterval(()=>{s--;timeEl.textContent=s+"s";if(s<=0){stop();cb()}},1000)}
+function fail(msg){if(locked)return;locked=true;stop();lives--;update();game.classList.remove("shake");void game.offsetWidth;game.classList.add("shake");if(lives<=0){lose();return}game.querySelector(".feedback").textContent=msg+" Te queda(n) "+lives+" vida(s).";setTimeout(()=>{locked=false;render()},1000)}
+function winChallenge(msg){stop();locked=true;game.innerHTML=`<div class="center"><div class="big">💖</div><h2>¡Superado!</h2><p class="question">${msg}</p><button onclick="next()">Siguiente →</button></div>`}
+function choice(i){let c=challenges[level];if(i===c.correct)winChallenge(c.ok);else fail("NOOO 😈 ¡Esa no era!")}
+function checkCode(){let v=document.getElementById("inp").value.trim().toLowerCase();if(v===answerExpected)winChallenge(challenges[level].ok);else fail("Código incorrecto 🕵️")}
+function checkScramble(){let v=document.getElementById("inp").value.trim().toLowerCase().replace(/\s/g,"");if(v===answerExpected)winChallenge(challenges[level].ok);else fail("Esa palabra quedó más desordenada que tu cabeza 😂")}
 function render(){
-  locked=false;stopTimer();updateTop();
-  const l=levels[level];
-  let html=`<h2>${l.title}</h2><p class="question">${l.text}</p>`;
-  if(l.options) html+=`<div class="options">${l.options.map((x,i)=>`<button onclick="answer(${i})">${x}</button>`).join("")}</div>`;
-  if(l.input) html+=`<input id="answerInput" placeholder="${l.placeholder}" autocomplete="off"><button onclick="checkCode()">Comprobar código</button>`;
-  if(l.memory) html+=`<div id="memoryArea"></div>`;
-  if(l.sequence) html+=`<div id="sequenceArea"></div>`;
-  html+=`<div class="feedback"></div>`;
-  game.innerHTML=html;
-  if(l.input)startTimer(l.time,timeout);
-  if(l.memory)initMemory();
-  if(l.sequence)initSequence();
-  if(l.options)startTimer(l.time,timeout);
+ stop();locked=false;update();let c=challenges[level],h=`<h2>${c.title}</h2><p class="question">${c.q}</p>`;
+ if(c.opts)h+=`<div class="options">${c.opts.map((x,i)=>`<button onclick="choice(${i})">${x}</button>`).join("")}</div>`;
+ if(c.type==="code"){answerExpected=c.answer;h+=`<input id="inp" placeholder="Escribí la palabra…"><button onclick="checkCode()">Descifrar 🔓</button>`}
+ if(c.type==="scramble"){answerExpected=c.answer;h+=`<div class="scramble">${c.letters.map(x=>`<span class="letter">${x}</span>`).join("")}</div><input id="inp" placeholder="¿Qué palabra es?"><button onclick="checkScramble()">Comprobar 🔎</button>`}
+ if(c.type==="reaction")h+=`<div class="reaction" id="reaction">⏳</div><button id="reactBtn" onclick="react()">¡TOCAR!</button>`;
+ if(c.type==="sequence")h+=`<div id="seq"></div>`;
+ h+=`<div class="feedback"></div>`;game.innerHTML=h;
+ if(c.type==="choice"||c.type==="final")start(25,()=>fail("Se terminó el tiempo ⏰"));
+ if(c.type==="code"||c.type==="scramble")start(35,()=>fail("Se terminó el tiempo ⏰"));
+ if(c.type==="reaction")initReaction();
+ if(c.type==="sequence")initSequence();
 }
-function checkCode(){
-  const val=document.getElementById("answerInput").value.trim().toLowerCase();
-  if(val==="sorpresa"||val==="sorp")success("¡Descifraste el código! La sorpresa se acerca…");
-  else{
-    const dead=loseLife("Ese código no era 😏");
-    if(!dead){locked=false}
-  }
+function initReaction(){
+ let good=Math.random()>.35;const r=document.getElementById("reaction");r.textContent="👀";setTimeout(()=>{r.textContent=good?"❤️":"😈";r.dataset.good=good;},1200+Math.random()*1800);start(7,()=>fail("¡Demasiado lento! ⚡"))
 }
+function react(){const r=document.getElementById("reaction");if(r.textContent==="❤️"&&r.dataset.good==="true")winChallenge("¡Reflejos de ninja enamorado! ⚡❤️");else if(r.textContent==="😈")fail("¡CAÍSTE EN LA TRAMPA! 😈");else fail("¡Muy apurado! Todavía no había aparecido nada 😂")}
 function initSequence(){
-  const symbols=["♥","★","☾","✦","♡","◆"];
-  const seq=Array.from({length:5},()=>symbols[Math.floor(Math.random()*symbols.length)]);
-  const area=document.getElementById("sequenceArea");
-  area.innerHTML=`<div class="sequence">${seq.map(s=>`<div class="symbol">${s}</div>`).join("")}</div><p class="center" id="seqHint">Memorizala…</p><input id="seqInput" placeholder="Escribí la secuencia sin espacios"><button onclick="checkSequence()">Comprobar</button>`;
-  setTimeout(()=>{area.querySelector(".sequence").innerHTML=seq.map(()=>`<div class="symbol">❓</div>`).join("");document.getElementById("seqHint").textContent="Ahora sí: ¿cuál era?";area.dataset.answer=seq.join("");},5500);
-  startTimer(25,timeout);
+ const sy=["❤️","⭐","🌙","💋","🍓","💎"],seq=Array.from({length:6},()=>sy[Math.floor(Math.random()*sy.length)]),area=document.getElementById("seq");
+ area.innerHTML=`<div class="sequence">${seq.map(x=>`<div class="sym">${x}</div>`).join("")}</div><p class="center" id="hint">Memorizá…</p>`;
+ setTimeout(()=>{area.innerHTML=`<input id="inp" placeholder="Escribí los 6 símbolos juntos"><button onclick="checkSeq()">Comprobar 🧠</button>`;area.dataset.a=seq.join("");},4000);
+ start(25,()=>fail("Se terminó el tiempo ⏰"));
 }
-function checkSequence(){
-  const area=document.getElementById("sequenceArea");
-  if(document.getElementById("seqInput").value.trim()===area.dataset.answer)success("¡Tenés memoria de elefante enamorado! 💘");
-  else{const dead=loseLife("No era esa secuencia 😵");if(!dead)locked=false}
-}
-function initMemory(){
-  const icons=["💋","🌹","🍫","💍","💋","🌹","🍫","💍"];
-  icons.sort(()=>Math.random()-.5);memory=icons;chosen=[];matches=0;
-  const area=document.getElementById("memoryArea");
-  area.innerHTML=`<div class="memory-grid">${memory.map((x,i)=>`<button class="tile" id="tile${i}" onclick="flip(${i})">${x}</button>`).join("")}</div><p class="feedback" id="memoryFeedback">Encontrá las 4 parejas.</p>`;
-  startTimer(40,timeout);
-}
-function flip(i){
-  if(locked)return;
-  const el=document.getElementById("tile"+i);
-  if(el.classList.contains("revealed")||el.classList.contains("matched"))return;
-  el.classList.add("revealed");chosen.push(i);
-  if(chosen.length===2){
-    locked=true;
-    const [a,b]=chosen;
-    if(memory[a]===memory[b]){
-      document.getElementById("tile"+a).classList.add("matched");
-      document.getElementById("tile"+b).classList.add("matched");
-      matches++;chosen=[];locked=false;
-      if(matches===4)success("¡Encontraste todas las parejas! 💞");
-    }else{
-      setTimeout(()=>{document.getElementById("tile"+a).classList.remove("revealed");document.getElementById("tile"+b).classList.remove("revealed");chosen=[];locked=false;},700);
-    }
-  }
-}
-function next(){
-  level++;
-  if(level>=levels.length){winScreen();return}
-  render();
-}
-function loseScreen(){
-  stopTimer();locked=true;bar.style.width=(level/6*100)+"%";
-  game.innerHTML=`<div class="center"><div class="kiss">😈💋</div><h2>¡Perdiste, campeón!</h2><p class="question">La sorpresa queda secuestrada por ahora. Te faltó un poquito de cerebro y te sobró confianza 😂</p><p>Pero podés volver a intentarlo.</p><button onclick="restart()">Reintentar 🔁</button></div>`;
-}
-function winScreen(){
-  stopTimer();bar.style.width="100%";roundEl.textContent="6";
-  game.innerHTML=`<div class="center"><div class="big-heart">💖</div><div class="kiss">😘</div><h2>¡GANASTE!</h2><p class="question"><b>Cuando te vea te doy la sorpresa.</b></p><p>Te amo, incluso cuando te burlás de este juego 😌❤️</p><button onclick="restart()">Jugar otra vez 🔁</button></div>`;
-}
-function restart(){level=0;lives=3;render()}
-particles();render();
+function checkSeq(){let v=document.getElementById("inp").value.trim();if(v===document.getElementById("seq").dataset.a)winChallenge("¡Memoria perfecta! 🧠💘");else fail("No era esa secuencia 😵")}
+function next(){level++;if(level>=challenges.length){victory();return}render()}
+function lose(){stop();bar.style.width=(level/7*100)+"%";game.innerHTML=`<div class="center"><div class="big">💀</div><h2>PERDISTE 😂</h2><p class="question">La sorpresa queda bloqueada. Te faltó cerebro, reflejos o suerte… probablemente las tres.</p><p>Pero te doy otra oportunidad porque soy buena 😌</p><button onclick="restart()">Intentar otra vez 🔁</button></div>`}
+function victory(){stop();bar.style.width="100%";game.innerHTML=`<div class="center"><div class="big">💖</div><div style="font-size:3.5rem">🥳💋</div><h2>¡¡¡GANASTE!!!</h2><p class="question" style="font-size:1.3rem"><b>Cuando te vea te doy la sorpresa. ❤️</b></p><p>Pasaste todos los desafíos. Ahora no te hagas el misterioso 😏</p><button onclick="restart()">Jugar de nuevo 🔁</button></div>`}
+function restart(){level=0;lives=3;score=0;render()}
+bg();render();
 </script>
 </body>
 </html>
